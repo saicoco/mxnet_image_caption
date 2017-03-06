@@ -14,15 +14,21 @@ from model import vgg16_fc7, caption_module
 from data_provider import caption_dataIter, init_cnn
 
 logging.basicConfig(level=logging.INFO)
+class callbacks:
+    def __init__(self, nbatch, eval_metric, epoch):
+        self.nbatch = nbatch
+        self.eval_metric = eval_metric
+        self.epoch = epoch
 
-if __name__ == '__main__':
-
+def main():
     learning_rate = 0.01
     epoches = 20
     batch_size = 8
     num_hidden = 256
     num_embed = 256
     num_lstm_layer = 1
+    freq_val = 10
+    val_flag = True
     ctx = mx.gpu(0)
 
     with open(config.text_root, 'r') as f:
@@ -68,8 +74,7 @@ if __name__ == '__main__':
     perplexity.reset()
 
     # callback
-    callbacks = collections.namedtuple('callbacks', 'nbatch eval_metric epoch')
-    params = callbacks(nbatch=len(train_data.idx)//batch_size, eval_metric=perplexity, epoch=epoches)
+    params = callbacks(nbatch=0, eval_metric=perplexity, epoch=epoches)
     speedometer = mx.callback.Speedometer(batch_size=batch_size, frequent=20)
     for epoch in range(epoches):
         for i, batch in enumerate(train_data):
@@ -91,83 +96,36 @@ if __name__ == '__main__':
             lstm_exec.forward(is_train=True)
             params.eval_metric.update(labels=batch.label,
                               preds=lstm_exec.outputs)
-
             lstm_exec.backward()
+            params.nbatch += 1
             speedometer(params)
-
             for j, name in enumerate(lstm.list_arguments()):
                 if name not in lstm_shapes.keys():
                     updater(j, lstm_exec.grad_dict[name], lstm_exec.arg_dict[name])
-    ##########################################################################
+        train_data.reset()
+        params.nbatch = 0
 
-    # train_wrap = dataIter_wrap(train_data, ctx=ctx)
-    # val_wrap = dataIter_wrap(val_data, ctx=ctx)
+        if val_flag and epoch%freq_val==0:
+            for i, batch in enumerate(val_data):
 
-    # lstm = caption_module(num_lstm_layer=num_lstm_layer, seq_len=train_data.sent_length,
-    #                       vocab_size=train_data.vocab_size, num_hidden=num_hidden, num_embed=num_embed, batch_size=batch_size)
-    # caption = mx.mod.Module(symbol=lstm, data_names=['image_feature', 'word_data'], label_names=('softmax_label',), context=ctx)
+                # cnn forward, get image_feature
+                cnn_exec.arg_dict['image_data'] = batch.data[0]
+                cnn_exec.forward()
+                image_feature = cnn_exec.outputs[0]
 
-    # caption.fit(
-    #     train_data=train_wrap,
-    #     eval_data=val_wrap,
-    #     eval_metric=mx.metric.Perplexity(None),
-    #     optimizer='sgd',
-    #     optimizer_params={'learning_rate': 0.01,
-    #                       'momentum': 0.9,
-    #                       'wd': 0.00001},
-    #     initializer=mx.init.Xavier(factor_type="in", magnitude=2.34),
-    #     num_epoch=20,
-    #     batch_end_callback=mx.callback.Speedometer(batch_size, 20))
-    # # caption.bind(data_shapes=caption_data_shapes, label_shapes=[
-    #              ('softmax_label', (batch_size, 30))])
-    # caption.init_params()
-    # caption.init_optimizer(kvstore='local', optimizer='sgd', optimizer_params=(
-    #     ('learning_rate', 0.01),), force_init=False)
+                # lstm forward
+                lstm_exec.arg_dict['image_feature'] = image_feature
+                lstm_exec.arg_dict['word_data'] = batch.data[1]
+                lstm_exec.arg_dict['softmax_label'] = batch.label
+                
+                lstm_exec.forward(is_train=False)
+                params.eval_metric.update(labels=batch.label,
+                                preds=lstm_exec.outputs)
+                params.nbatch += 1
+                speedometer(params)
+            params.nbatch = 0
+            val_data.reset()
 
-    # init sym
-    # pretrain_cnn = mx.nd.load(config.vgg_pretrain)
-    # init_cnn(cnn_exec, pretrain_cnn)
+if __name__ == '__main__':
 
-    # init metric,monitor invalid label:-1
-    # perplexity = mx.metric.Perplexity(-1)
-    # monitor = mx.callback.Speedometer(batch_size=batch_size, frequent=50)
-    # caption.install_monitor(monitor)
-
-    ###########################################################
-    #################### train lopp ###########################
-    ###########################################################
-    # for epoch in range(1):
-    #     tic = time.time()
-    #     perplexity.reset()
-    #     for i, batch in enumerate(train_data):
-    #         # get image_feature from fc_layer
-    #         # monitor.tic()
-    #         cnn_exec.arg_dict['image_data'][:] = batch.data[0]
-    #         cnn_exec.forward()
-    #         image_feature = cnn_exec.outputs[0]
-
-    #         # input image_feature to caption
-    #         data = [image_feature, batch.data[1]]
-    #         provide_data = [
-    #             ('image_feature', image_feature.shape), batch.provide_data[1]]
-
-    #         caption_batch = mx.io.DataBatch(data=data, label=batch.label,
-    #                                         bucket_key=batch.bucket_key,
-    #                                         provide_data=provide_data,
-    #                                         provide_label=batch.provide_label)
-    #         caption.forward(data_batch=caption_batch)
-    #         try:
-    #             caption.backward()
-    #         except:
-    #             logging.info('bucket-idx:{}, batch-idx:{}, cur-idx:{}, length-idx:{}'.format(
-    #                 caption_batch.bucket_key, i, train_data.curr_idx, len(train_data.idx)))
-    #             # caption.update()
-
-    #     caption.update_metric(eval_metric=perplexity, labels=caption_batch.label)
-    #     # monitor.toc_print()
-    # # one epoch of training is finished
-    # for name, val in perplexity.get_name_value():
-    #     self.logger.info('Epoch[%d] Train-%s=%f', epoch, name, val)
-    # toc = time.time()
-    # self.logger.info('Epoch[%d] Time cost=%.3f', epoch, (toc-tic))
-    # train_data.reset()
+    main()
