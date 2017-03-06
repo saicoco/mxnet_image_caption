@@ -14,19 +14,23 @@ from model import vgg16_fc7, caption_module
 from data_provider import caption_dataIter, init_cnn
 
 logging.basicConfig(level=logging.INFO)
+
+
 class callbacks:
+
     def __init__(self, nbatch, eval_metric, epoch):
         self.nbatch = nbatch
         self.eval_metric = eval_metric
         self.epoch = epoch
+    
 
 def main():
-    learning_rate = 0.01
+    learning_rate = 0.001
     epoches = 20
-    batch_size = 8
+    batch_size = 25
     num_hidden = 256
     num_embed = 256
-    num_lstm_layer = 1
+    num_lstm_layer = 2
     freq_val = 10
     val_flag = True
     ctx = mx.gpu(0)
@@ -74,7 +78,7 @@ def main():
     perplexity.reset()
 
     # callback
-    params = callbacks(nbatch=0, eval_metric=perplexity, epoch=epoches)
+    params = callbacks(nbatch=0, eval_metric=perplexity, epoch=0)
     speedometer = mx.callback.Speedometer(batch_size=batch_size, frequent=20)
     for epoch in range(epoches):
         for i, batch in enumerate(train_data):
@@ -92,20 +96,22 @@ def main():
             # update lstm grad
             for key, arr in lstm_exec.grad_dict.items():
                 arr[:] = 0.
-            
+
             lstm_exec.forward(is_train=True)
             params.eval_metric.update(labels=batch.label,
                               preds=lstm_exec.outputs)
             lstm_exec.backward()
+            params.epoch = epoch
             params.nbatch += 1
             speedometer(params)
             for j, name in enumerate(lstm.list_arguments()):
                 if name not in lstm_shapes.keys():
-                    updater(j, lstm_exec.grad_dict[name], lstm_exec.arg_dict[name])
+                    updater(j, lstm_exec.grad_dict[
+                            name], lstm_exec.arg_dict[name])
         train_data.reset()
         params.nbatch = 0
 
-        if val_flag and epoch%freq_val==0:
+        if val_flag and epoch % freq_val == 0:
             for i, batch in enumerate(val_data):
 
                 # cnn forward, get image_feature
@@ -117,15 +123,15 @@ def main():
                 lstm_exec.arg_dict['image_feature'] = image_feature
                 lstm_exec.arg_dict['word_data'] = batch.data[1]
                 lstm_exec.arg_dict['softmax_label'] = batch.label
-                
+
                 lstm_exec.forward(is_train=False)
                 params.eval_metric.update(labels=batch.label,
                                 preds=lstm_exec.outputs)
+                params.epoch = epoch
                 params.nbatch += 1
                 speedometer(params)
             params.nbatch = 0
             val_data.reset()
 
 if __name__ == '__main__':
-
     main()
