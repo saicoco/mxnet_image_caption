@@ -33,7 +33,7 @@ def main():
     num_lstm_layer = 2
     freq_val = 10
     val_flag = True
-    ctx = mx.gpu(0)
+    ctx = mx.cpu(0)
 
     with open(config.text_root, 'r') as f:
         captions = json.load(f)
@@ -62,14 +62,14 @@ def main():
     }
 
     lstm_exec = lstm.simple_bind(
-        ctx=ctx, is_train=True, grad_req='add', **lstm_shapes)
+        ctx=ctx, is_train=True, **lstm_shapes)
 
     # init params
     pretrain = mx.nd.load(config.vgg_pretrain)
     init_cnn(cnn_exec, pretrain)
 
     # init optimazer
-    optimazer = mx.optimizer.create('sgd')
+    optimazer = mx.optimizer.create('adam')
     optimazer.lr = learning_rate
     updater = mx.optimizer.get_updater(optimazer)
 
@@ -92,10 +92,6 @@ def main():
             lstm_exec.arg_dict['image_feature'] = image_feature
             lstm_exec.arg_dict['word_data'] = batch.data[1]
             lstm_exec.arg_dict['softmax_label'] = batch.label
-
-            # update lstm grad
-            for key, arr in lstm_exec.grad_dict.items():
-                arr[:] = 0.
 
             lstm_exec.forward(is_train=True)
             params.eval_metric.update(labels=batch.label,

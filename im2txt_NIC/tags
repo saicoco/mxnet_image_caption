@@ -7,8 +7,8 @@
 __init__	data_provider.py	/^    def __init__(self, captions, batch_size, buckets=None, invalid_label=-1,$/;"	kind:member	line:174
 __init__	data_provider.py	/^    def __init__(self, captions, batch_size, buckets=None, invalid_label=-1,$/;"	kind:member	line:40
 __init__	data_provider.py	/^    def __init__(self, dataIter, ctx=mx.cpu()):$/;"	kind:member	line:259
-__init__	train.py	/^    def __init__(self, nbatch, eval_metric, epoch):$/;"	kind:member	line:18
-callbacks	train.py	/^class callbacks:$/;"	kind:class	line:17
+__init__	train.py	/^    def __init__(self, nbatch, eval_metric, epoch):$/;"	kind:member	line:21
+callbacks	train.py	/^class callbacks:$/;"	kind:class	line:19
 caption_dataIter	data_provider.py	/^class caption_dataIter(mx.io.DataIter):$/;"	kind:class	line:150
 caption_module	model.py	/^def caption_module(num_lstm_layer, seq_len, vocab_size, num_hidden, num_embed, batch_size, dropout=0.):$/;"	kind:function	line:60
 config.py	config.py	1;"	kind:file	line:1
@@ -22,7 +22,7 @@ init_cnn	data_provider.py	/^def init_cnn(cnn, pretrain):$/;"	kind:function	line:
 load_json	tools.py	/^def load_json():$/;"	kind:function	line:38
 lstm	model.py	/^    lstm = caption_module(num_lstm_layer=2, seq_len=100, vocab_size=1000, num_hidden=256, num_embed=256, batch_size=12)$/;"	kind:variable	line:85
 lstm_exec	model.py	/^    lstm_exec = lstm.simple_bind(ctx=mx.cpu(), is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))$/;"	kind:variable	line:86
-main	train.py	/^def main():$/;"	kind:function	line:23
+main	train.py	/^def main():$/;"	kind:function	line:27
 model.py	model.py	1;"	kind:file	line:1
 next	data_provider.py	/^    def next(self):$/;"	kind:member	line:121
 next	data_provider.py	/^    def next(self):$/;"	kind:member	line:234
