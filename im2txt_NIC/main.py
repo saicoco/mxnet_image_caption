@@ -23,6 +23,7 @@ def parse_args():
     parser.add_argument('--batch_size', default=50, type=int, help="batch_size in training-stage", dest='batch_size')
     parser.add_argument('--lr', default=0.01, type=float, help="learning rate in training-stage", dest='lr')
     parser.add_argument('--freq_val', default=5, type=int, help="frequence of validation", dest='freq_val')
+    parser.add_argument('--num_hidden', default=256, type=int, help="the number of hidden unit", dest='num_hidden')
     parser.add_argument('--num_embed', default=256, type=int, help="the number of embedding dimension", dest='num_embed')
     parser.add_argument('--num_lstm_layer', default=256, type=int, help="the number of hidden_unit", dest='num_lstm_layer')
     parser.add_argument('--gpus', default=None, type=list, help="the number of gpus devices you load", dest='gpus')
@@ -151,5 +152,4 @@ def main(args):
                             aux_params=lstm_exec.aux_dict)
 if __name__ == '__main__':
     args = parse_args()
-    print args
-    # main(args)
+    main(args)
