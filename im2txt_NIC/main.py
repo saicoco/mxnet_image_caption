@@ -10,11 +10,23 @@ import config
 import logging
 import time
 import collections
-from model import vgg16_fc7, caption_module
+from sym import vgg16_fc7, caption_module
 from data_provider import caption_dataIter, init_cnn
-
+from mxnet.model import save_checkpoint
+import argparse
 logging.basicConfig(level=logging.INFO)
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(name='--epoches', default=, type=, desc="")
+    parser.add_argument(name='--batch_size', default=, type=, desc="")
+    parser.add_argument(name='--lr', default=, type=, desc="")
+    parser.add_argument(name='--freq_val', default=, type=, desc="")
+    parser.add_argument(name='--num_embed', default=, type=, desc="")
+    parser.add_argument(name='--num_lstm_layer', default=, type=, desc="")
+    parser.add_argument(name='--gpus', default=, type=, desc="")
+    parser.add_argument(name='--prefix', default=, type=, desc="")
+    parser.add_argument(name='--period', default=, type=, desc="")
 
 class callbacks:
 

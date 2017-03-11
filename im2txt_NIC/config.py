@@ -5,6 +5,7 @@ image_root = './datasets/image/'
 text_root = './datasets/caption/dataset.json'
 vocab_root = './vocab/vocab.json'
 idx2words = './vocab/idx2word.json'
+word2idx = './vocab/word2idx.json'
 vgg_pretrain = './pre_train/vgg16-0000.params'
 
 

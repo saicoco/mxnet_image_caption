@@ -147,6 +147,7 @@ class variable_length_caption_dataIter(mx.io.DataIter):
                                              (self.data_name[1], word_data.shape)],
                                provide_label=[(self.label_name, label.shape)])
 
+
 class caption_dataIter(mx.io.DataIter):
     """Simple bucketing iterator for caption model.
     Label for each step is constructed from data of
@@ -177,7 +178,7 @@ class caption_dataIter(mx.io.DataIter):
 
         assert mode in [u'train', u'val', u'test']
         all_sentences_length = [len(captions['images'][i]['sentences'][j]['tokens']) for i in xrange(len(captions['images']))
-                             for j in xrange(len(captions['images'][i]['sentences']))]
+                                for j in xrange(len(captions['images'][i]['sentences']))]
         max_length = max(all_sentences_length)
         self.sent_length = max_length
         self.words_data = []
@@ -185,21 +186,21 @@ class caption_dataIter(mx.io.DataIter):
         self.vocab_size = None
         with open(config.vocab_root, 'r') as f:
             vocab = json.load(f)
-            self.vocab_size = len(vocab)
-            for i in range(len(captions['images'])):
-                if captions['images'][i]['split'] == mode:
-                    sentences = [captions['images'][i]['sentences'][j]['tokens']
-                                 for j in xrange(len(captions['images'][i]['sentences']))]
-                    for k in range(len(sentences)):
-                        buff = np.full(
-                            (self.sent_length,), invalid_label, dtype)
-                        buff[:len(sentences[k])] = [vocab[item]
-                                                    for item in sentences[k]]
-                        self.words_data.append(buff)
-                        self.image_data.append(
-                            captions['images'][i]['filename'])
+        self.vocab_size = len(vocab)
+        for i in range(len(captions['images'])):
+            if captions['images'][i]['split'] == mode:
+                sentences = [captions['images'][i]['sentences'][j]['tokens']
+                             for j in xrange(len(captions['images'][i]['sentences']))]
+                for k in range(len(sentences)):
+                    buff = np.full(
+                        (self.sent_length,), invalid_label, dtype)
+                    buff[:len(sentences[k])] = [vocab[item]
+                                                for item in sentences[k]]
+                    self.words_data.append(buff)
+                    self.image_data.append(
+                        captions['images'][i]['filename'])
 
-            self.words_data = np.asarray(self.words_data, dtype=dtype)
+        self.words_data = np.asarray(self.words_data, dtype=dtype)
 
         self.batch_size = batch_size
         self.data_name = data_name
@@ -230,14 +231,14 @@ class caption_dataIter(mx.io.DataIter):
         label[:, -1] = self.invalid_label
         self.ndlabel = mx.nd.array(label, dtype=self.dtype)
 
-
     def next(self):
         if self.curr_idx == len(self.idx):
             raise StopIteration
         self.curr_idx += 1
         word_data = self.ndword[self.curr_idx:self.curr_idx + self.batch_size]
         label = self.ndlabel[self.curr_idx:self.curr_idx + self.batch_size]
-        image_name = self.image_data[self.curr_idx:self.curr_idx + self.batch_size]
+        image_name = self.image_data[
+            self.curr_idx:self.curr_idx + self.batch_size]
 
         image_data = []
         for item in image_name:
@@ -266,12 +267,12 @@ class dataIter_wrap(mx.io.DataIter):
         self.cnn_exec = cnn_exec
         self.dataIter = dataIter
         self.provide_data = [('image_feature', (dataIter.batch_size, 4096)),
-                            dataIter.provide_data[1]]
+                             dataIter.provide_data[1]]
         self.provide_label = dataIter.provide_label
 
     def reset(self):
         self.dataIter.reset()
-    
+
     def image_feature_generator(self):
         for i, batch in enumerate(self.dataIter):
             self.cnn_exec.arg_dict['image_data'][:] = batch.data[0]
@@ -286,9 +287,10 @@ class dataIter_wrap(mx.io.DataIter):
                                             provide_data=provide_data,
                                             provide_label=batch.provide_label)
             yield caption_batch
-    
+
     def next(self):
         return self.image_feature_generator().next()
+
 
 def init_cnn(cnn, pretrain):
     for k, arr in cnn.arg_dict.items():
@@ -299,13 +301,18 @@ def init_cnn(cnn, pretrain):
 if __name__ == '__main__':
     with open(config.text_root, 'r') as f:
         captions = json.load(f)
-    diter = caption_dataIter(captions=captions, batch_size=100)
-    wrap_iter = dataIter_wrap(diter, ctx=mx.gpu(1))
-    # data = wrap_iter.next()
-    # sent =  data.data[1][0].asnumpy()
-    # print sent.shape
-    for i, batch in enumerate(wrap_iter):
-        print i
+    mx.profiler.profiler_set_config(mode='all', filename='train_epoch.json')
+    mx.profiler.profiler_set_state('run')
+    diter = caption_dataIter(captions=captions, batch_size=10)
+    wrap_iter = dataIter_wrap(diter, ctx=mx.cpu(1))
+    data = wrap_iter.next()
+    sent = data.label[0][0].asnumpy()
+    print sent
+
+    mx.profiler.profiler_set_state('stop')
+
+    # for i, batch in enumerate(wrap_iter):
+    #     print i
     # data = diter.next()
     # image, sent, label = data.data[0][0].asnumpy(), data.data[1][
     #     0].asnumpy(), data.label[0][0].asnumpy()
@@ -319,4 +326,3 @@ if __name__ == '__main__':
     # print sentence
     # label_sent = [idx2words[str(int(k))] for k in label]
     # print sentence, diter.default_bucket_key, label_sent
-
