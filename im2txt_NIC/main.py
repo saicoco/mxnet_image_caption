@@ -19,15 +19,15 @@ logging.basicConfig(level=logging.INFO)
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument(name='--epoches', default=20, type=int, dest="epoches in training-stage")
-    parser.add_argument(name='--batch_size', default=50, type=int, dest="batch_size in training-stage")
-    parser.add_argument(name='--lr', default=0.01, type=float, dest="learning rate in training-stage")
-    parser.add_argument(name='--freq_val', default=5, type=int, dest="frequence of validation")
-    parser.add_argument(name='--num_embed', default=256, type=int, dest="the number of embedding dimension")
-    parser.add_argument(name='--num_lstm_layer', default=256, type=int, dest="the number of hidden_unit")
-    parser.add_argument(name='--gpus', default=None, type=list, dest="the number of gpus devices you load")
-    parser.add_argument(name='--prefix', default='./checkpoint/train', type=str, dest="prefix of save checkpoint")
-    parser.add_argument(name='--period', default=5, type=int, dest="times to save checkpoint in training-stage")
+    parser.add_argument('--epoches', default=20, type=int, help="epoches in training-stage", dest='epoches')
+    parser.add_argument('--batch_size', default=50, type=int, help="batch_size in training-stage", dest='batch_size')
+    parser.add_argument('--lr', default=0.01, type=float, help="learning rate in training-stage", dest='lr')
+    parser.add_argument('--freq_val', default=5, type=int, help="frequence of validation", dest='freq_val')
+    parser.add_argument('--num_embed', default=256, type=int, help="the number of embedding dimension", dest='num_embed')
+    parser.add_argument('--num_lstm_layer', default=256, type=int, help="the number of hidden_unit", dest='num_lstm_layer')
+    parser.add_argument('--gpus', default=None, type=list, help="the number of gpus devices you load", dest='gpus')
+    parser.add_argument('--prefix', default='./checkpoint/train', type=str, help="prefix of save checkpoint", dest='prefix')
+    parser.add_argument('--period', default=5, type=int, help="times to save checkpoint in training-stage", dest='period')
     return parser.parse_args()
 
 
@@ -151,4 +151,5 @@ def main(args):
                             aux_params=lstm_exec.aux_dict)
 if __name__ == '__main__':
     args = parse_args()
-    main(args)
+    print args
+    # main(args)

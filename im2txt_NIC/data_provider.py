@@ -10,7 +10,7 @@ import config
 import json
 import random
 import scipy
-from model import vgg16_fc7
+from sym import vgg16_fc7
 
 
 class variable_length_caption_dataIter(mx.io.DataIter):
