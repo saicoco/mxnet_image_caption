@@ -16,17 +16,20 @@ from mxnet.model import save_checkpoint
 import argparse
 logging.basicConfig(level=logging.INFO)
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument(name='--epoches', default=, type=, desc="")
-    parser.add_argument(name='--batch_size', default=, type=, desc="")
-    parser.add_argument(name='--lr', default=, type=, desc="")
-    parser.add_argument(name='--freq_val', default=, type=, desc="")
-    parser.add_argument(name='--num_embed', default=, type=, desc="")
-    parser.add_argument(name='--num_lstm_layer', default=, type=, desc="")
-    parser.add_argument(name='--gpus', default=, type=, desc="")
-    parser.add_argument(name='--prefix', default=, type=, desc="")
-    parser.add_argument(name='--period', default=, type=, desc="")
+    parser.add_argument(name='--epoches', default=20, type=int, desc="epoches in training-stage")
+    parser.add_argument(name='--batch_size', default=50, type=int, desc="batch_size in training-stage")
+    parser.add_argument(name='--lr', default=0.01, type=float, desc="learning rate in training-stage")
+    parser.add_argument(name='--freq_val', default=5, type=int, desc="frequence of validation")
+    parser.add_argument(name='--num_embed', default=256, type=int, desc="the number of embedding dimension")
+    parser.add_argument(name='--num_lstm_layer', default=256, type=int, desc="the number of hidden_unit")
+    parser.add_argument(name='--gpus', default=None, type=list, desc="the number of gpus devices you load")
+    parser.add_argument(name='--prefix', default='./checkpoint/train', type=str, desc="prefix of save checkpoint")
+    parser.add_argument(name='--period', default=5, type=int, desc="times to save checkpoint in training-stage")
+    return parser.parse_args()
+
 
 class callbacks:
 
@@ -34,18 +37,20 @@ class callbacks:
         self.nbatch = nbatch
         self.eval_metric = eval_metric
         self.epoch = epoch
-    
 
-def main():
-    learning_rate = 0.001
-    epoches = 20
-    batch_size = 25
-    num_hidden = 256
-    num_embed = 256
-    num_lstm_layer = 2
-    freq_val = 10
-    val_flag = True
-    ctx = mx.cpu(0)
+
+def main(args):
+    learning_rate = args.lr
+    epoches = args.epoches
+    batch_size = args.batch_size
+    num_hidden = args.num_hidden
+    num_embed = args.num_embed
+    num_lstm_layer = args.num_lstm_layer
+    freq_val = args.freq_val
+    val_flag = True if args.freq_val > 0 else False
+    ctx = mx.cpu(0) if args.gpus is None else [mx.gpu(i) for i in args.gpus]
+    prefix = args.prefix
+    period = args.period
 
     with open(config.text_root, 'r') as f:
         captions = json.load(f)
@@ -107,7 +112,7 @@ def main():
 
             lstm_exec.forward(is_train=True)
             params.eval_metric.update(labels=batch.label,
-                              preds=lstm_exec.outputs)
+                                      preds=lstm_exec.outputs)
             lstm_exec.backward()
             params.epoch = epoch
             params.nbatch += 1
@@ -134,12 +139,16 @@ def main():
 
                 lstm_exec.forward(is_train=False)
                 params.eval_metric.update(labels=batch.label,
-                                preds=lstm_exec.outputs)
+                                          preds=lstm_exec.outputs)
                 params.epoch = epoch
                 params.nbatch += 1
                 speedometer(params)
             params.nbatch = 0
             val_data.reset()
-
+        if period:
+            save_checkpoint(prefix=prefix, epoch=epoch, symbol=lstm,
+                            arg_params=lstm_exec.arg_dict,
+                            aux_params=lstm_exec.aux_dict)
 if __name__ == '__main__':
-    main()
+    args = parse_args()
+    main(args)
