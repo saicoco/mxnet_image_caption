@@ -82,7 +82,8 @@ def caption_module(num_lstm_layer, seq_len, vocab_size, num_hidden, num_embed, b
     return softmax_output
 
 if __name__ == '__main__':
+    ctx = mx.cpu()
     lstm = caption_module(num_lstm_layer=2, seq_len=100, vocab_size=1000, num_hidden=256, num_embed=256, batch_size=12)
-    lstm_exec = lstm.simple_bind(ctx=mx.cpu(), is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))
+    lstm_exec = lstm.simple_bind(ctx=ctx, is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))
     # print lstm.infer_shape(word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))
     

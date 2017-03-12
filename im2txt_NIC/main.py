@@ -26,7 +26,7 @@ def parse_args():
     parser.add_argument('--num_hidden', default=256, type=int, help="the number of hidden unit", dest='num_hidden')
     parser.add_argument('--num_embed', default=256, type=int, help="the number of embedding dimension", dest='num_embed')
     parser.add_argument('--num_lstm_layer', default=256, type=int, help="the number of hidden_unit", dest='num_lstm_layer')
-    parser.add_argument('--gpus', default=None, type=str, help="the number of gpus devices you load", dest='gpus')
+    parser.add_argument('--gpu', default=None, type=str, help="wether run on gpu device", dest='gpus')
     parser.add_argument('--prefix', default='./checkpoint/train', type=str, help="prefix of save checkpoint", dest='prefix')
     parser.add_argument('--period', default=5, type=int, help="times to save checkpoint in training-stage", dest='period')
     return parser.parse_args()
@@ -49,7 +49,7 @@ def main(args):
     num_lstm_layer = args.num_lstm_layer
     freq_val = args.freq_val
     val_flag = True if args.freq_val > 0 else False
-    ctx = mx.cpu(0) if args.gpus is None else [mx.gpu(int(i)) for i in args.gpus.split(',')]
+    ctx = mx.cpu(0) if args.gpu is None else mx.gpu(int(args.gpu))
     prefix = args.prefix
     period = args.period
 
