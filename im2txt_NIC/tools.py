@@ -57,20 +57,21 @@ def vocab_generate(sentence_iterator, word_count_threshold):
     for sent in sentence_iterator:
         for w in sent:
             word_counts[w] = word_counts.get(w, 0) + 1
-    vocab = [w for w in word_counts if word_counts[w] >= word_count_threshold]
+    vocab = [w if word_counts[w] >= word_count_threshold else 'UNK' for w in word_counts]
     print "filtered words from {} to {} in {}s".format(len(word_counts), len(vocab), time.time() - t0)
 
     idx2word = {}
-    idx2word[-1] = 'UNK'
+    idx2word[0] = '#'
+
     word2idx = {}
-    word2idx['#START#'] = 0
-    ix = 0
-    for w in vocab:
-        word2idx[w] = ix
-        idx2word[ix] = w
-        ix += 1
-    word2idx['UNK'] = -1
-    word_counts['.'] = len(sentence_iterator)
+    word2idx['#'] = 0
+
+    idx2word = {i+1: w for i, w in enumerate(vocab)}
+    word2idx = {w: i+1 for i, w in enumerate(vocab)}
+    word2idx['#END'] = len(word2idx)
+    idx2word[len(word2idx)] = '#END'
+    if 'START' in word2idx.keys():
+        print 'yes'
     return vocab, word2idx, idx2word
     
     
@@ -82,6 +83,8 @@ if __name__ == '__main__':
     save2json(vocab, './vocab/vocab.json')
     save2json(word2idx, './vocab/word2idx.json')
     save2json(idx2word, './vocab/idx2word.json')
+    print word2idx['#']
+    print word2idx['#END']
     # vocab = vocab_generate(tokens)
     # idx_words = idx2words(vocab)
     # save2json(idx_words, config.idx2words)

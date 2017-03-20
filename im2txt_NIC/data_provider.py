@@ -10,7 +10,7 @@ import config
 import json
 import random
 import scipy
-from sym import vgg16_fc7
+from model import vgg16_fc7
 
 
 class variable_length_caption_dataIter(mx.io.DataIter):
@@ -184,7 +184,7 @@ class caption_dataIter(mx.io.DataIter):
         self.words_data = []
         self.image_data = []
         self.vocab_size = None
-        with open(config.vocab_root, 'r') as f:
+        with open(config.word2idx, 'r') as f:
             vocab = json.load(f)
         self.vocab_size = len(vocab)
         for i in range(len(captions['images'])):
@@ -193,9 +193,11 @@ class caption_dataIter(mx.io.DataIter):
                              for j in xrange(len(captions['images'][i]['sentences']))]
                 for k in range(len(sentences)):
                     buff = np.full(
-                        (self.sent_length,), invalid_label, dtype)
-                    buff[:len(sentences[k])] = [vocab[item]
-                                                for item in sentences[k]]
+                        (self.sent_length+2,), invalid_label, dtype)
+                    buff[1:len(sentences[k])+1] = [vocab[item] if item in vocab else vocab['UNK'] 
+                                                    for item in sentences[k]]
+                    buff[0] = vocab['#']
+                    buff[len(sentences[k])+1] = vocab['#END']
                     self.words_data.append(buff)
                     self.image_data.append(
                         captions['images'][i]['filename'])
@@ -220,7 +222,7 @@ class caption_dataIter(mx.io.DataIter):
         self.reset()
 
     def reset(self):
-        self.curr_idx = 0
+        self.curr_idx = 01
         random.shuffle(self.idx)
 
         self.ndlabel = []
@@ -307,7 +309,6 @@ if __name__ == '__main__':
     wrap_iter = dataIter_wrap(diter, ctx=mx.cpu(1))
     data = wrap_iter.next()
     sent = data.label[0][0].asnumpy()
-    print sent
 
     mx.profiler.profiler_set_state('stop')
 
