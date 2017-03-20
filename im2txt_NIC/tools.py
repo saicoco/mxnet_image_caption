@@ -60,6 +60,9 @@ def vocab_generate(sentence_iterator, word_count_threshold):
     vocab = [w if word_counts[w] >= word_count_threshold else 'UNK' for w in word_counts]
     print "filtered words from {} to {} in {}s".format(len(word_counts), len(vocab), time.time() - t0)
 
+    # start tag: #
+    # end tag: #END
+    # stop words: UNK
     idx2word = {}
     idx2word[0] = '#'
 

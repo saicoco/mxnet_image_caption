@@ -197,7 +197,7 @@ class caption_dataIter(mx.io.DataIter):
                     buff[1:len(sentences[k])+1] = [vocab[item] if item in vocab else vocab['UNK'] 
                                                     for item in sentences[k]]
                     buff[0] = vocab['#']
-                    buff[len(sentences[k])+1] = vocab['#END']
+                    # buff[len(sentences[k])+1] = vocab['#END']
                     self.words_data.append(buff)
                     self.image_data.append(
                         captions['images'][i]['filename'])
@@ -211,18 +211,18 @@ class caption_dataIter(mx.io.DataIter):
         self.invalid_label = invalid_label
         self.ndword = []
         self.ndlabel = []
-
+        self.vocab = vocab
         self.provide_data = [(data_name[0], (batch_size, 3, 224, 224)), (data_name[
-            1], (batch_size, self.sent_length))]
+            1], (batch_size, self.sent_length+2))]
         self.provide_label = [
-            (label_name, (batch_size, self.sent_length))]
+            (label_name, (batch_size, self.sent_length+2))]
 
         self.idx = range(len(self.words_data) - self.batch_size + 1)
         self.curr_idx = 0
         self.reset()
 
     def reset(self):
-        self.curr_idx = 01
+        self.curr_idx = 0
         random.shuffle(self.idx)
 
         self.ndlabel = []
@@ -230,7 +230,7 @@ class caption_dataIter(mx.io.DataIter):
 
         label = np.empty_like(self.words_data)
         label[:, :-1] = self.words_data[:, 1:]
-        label[:, -1] = self.invalid_label
+        label[:, -1] = self.vocab['#END']
         self.ndlabel = mx.nd.array(label, dtype=self.dtype)
 
     def next(self):
@@ -257,41 +257,6 @@ class caption_dataIter(mx.io.DataIter):
                                provide_label=[(self.label_name, label.shape)])
 
 
-class dataIter_wrap(mx.io.DataIter):
-
-    def __init__(self, dataIter, ctx=mx.cpu()):
-        super(dataIter_wrap, self).__init__()
-        cnn_shape = dict(dataIter.provide_data[:1])
-        cnn_sym = vgg16_fc7(input_name='image_data')
-        cnn_exec = cnn_sym.simple_bind(ctx=ctx, is_train=False, **cnn_shape)
-        pretrain_cnn = mx.nd.load(config.vgg_pretrain)
-        init_cnn(cnn_exec, pretrain_cnn)
-        self.cnn_exec = cnn_exec
-        self.dataIter = dataIter
-        self.provide_data = [('image_feature', (dataIter.batch_size, 4096)),
-                             dataIter.provide_data[1]]
-        self.provide_label = dataIter.provide_label
-
-    def reset(self):
-        self.dataIter.reset()
-
-    def image_feature_generator(self):
-        for i, batch in enumerate(self.dataIter):
-            self.cnn_exec.arg_dict['image_data'][:] = batch.data[0]
-            self.cnn_exec.forward()
-            image_feature = self.cnn_exec.outputs[0]
-
-            # input image_feature to caption
-            data = [image_feature, batch.data[1]]
-            provide_data = [('image_feature', image_feature.shape),
-                            batch.provide_data[1]]
-            caption_batch = mx.io.DataBatch(data=data, label=batch.label,
-                                            provide_data=provide_data,
-                                            provide_label=batch.provide_label)
-            yield caption_batch
-
-    def next(self):
-        return self.image_feature_generator().next()
 
 
 def init_cnn(cnn, pretrain):
@@ -306,24 +271,9 @@ if __name__ == '__main__':
     mx.profiler.profiler_set_config(mode='all', filename='train_epoch.json')
     mx.profiler.profiler_set_state('run')
     diter = caption_dataIter(captions=captions, batch_size=10)
-    wrap_iter = dataIter_wrap(diter, ctx=mx.cpu(1))
-    data = wrap_iter.next()
-    sent = data.label[0][0].asnumpy()
+    data = diter.next()
+    sent = data.data[1][0].asnumpy()
+    label = data.label[0][0].asnumpy()
+    print len(sent), diter.sent_length, diter.vocab_size, len(label)
 
     mx.profiler.profiler_set_state('stop')
-
-    # for i, batch in enumerate(wrap_iter):
-    #     print i
-    # data = diter.next()
-    # image, sent, label = data.data[0][0].asnumpy(), data.data[1][
-    #     0].asnumpy(), data.label[0][0].asnumpy()
-    # print label.shape, diter.provide_data, diter.provide_label
-
-    # with open(config.idx2words, 'r') as f:
-    #     idx2words = json.load(f)
-    # if 0 in idx2words.keys():
-    #     print 'yes'
-    # sentence = [idx2words[str(int(k))] for k in sent]
-    # print sentence
-    # label_sent = [idx2words[str(int(k))] for k in label]
-    # print sentence, diter.default_bucket_key, label_sent
