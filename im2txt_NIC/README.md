@@ -22,12 +22,15 @@ This is a simple implementaion of paper Neural Image Caption[^1] based on mxnet.
     ],
 "datasets":Flickr8k}
 ```
-For pretrain weight, you can download from [here](http://data.dmlc.ml/mxnet/models/imagenet/)
+or you can download processed data from [here](http://cs.stanford.edu/people/karpathy/deepimagesent/), which image are extracted from vgg networks 4096-dim, and unzip them into dir 'datasets'  
 
+2. After data downloading completes, you can run:  
+```
+python 1_preprocess_data.py
+```
+when it runs over, there will be a directory named "processed_data" which include train, val and test datasets which are splited by "split" key in dataset.json .
 
-2. Use tools.py to generate vocab.json and idx2word.json that will ba save into dir 'vocab'. 
-
-3. `python train.py` to train model on your dataset  
+3. `python 2_train_val.py` to train model on your dataset and save you dataset.  
 
 4. to be continue... 
 

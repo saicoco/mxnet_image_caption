@@ -57,8 +57,12 @@ def vgg16_fc7(input_name='image_data'):
     fc7 = mx.symbol.FullyConnected(data=drop6, num_hidden=4096, name="fc7")
     return fc7
 
-def caption_module(num_lstm_layer, seq_len, vocab_size, num_hidden, num_embed, batch_size, dropout=0.):
+def caption_module(num_lstm_layer=1, seq_len=38, vocab_size=2540, num_hidden=256, num_embed=256, batch_size=50, dropout=0.):
 
+    '''
+    input_vocab_size: len(tokens) + 3
+    output_vocab_size: len(tokens) + 2
+    '''
     seq = mx.sym.Variable('word_data')
     label = mx.sym.Variable('softmax_label')
     image_feature = mx.sym.Variable('image_feature')
@@ -73,17 +77,15 @@ def caption_module(num_lstm_layer, seq_len, vocab_size, num_hidden, num_embed, b
     for i in range(num_lstm_layer):
         stack.add(mx.rnn.LSTMCell(num_hidden=num_hidden, prefix='lstm_l%d_' % i))
     outputs, states = stack.unroll(length=seq_len+1, inputs=embedd_feature, merge_outputs=True)
-
-    outputs_crop = mx.sym.crop(outputs, begin=(0, 1, 0), end=(batch_size, seq_len+1, num_embed))
+    outputs_crop = mx.sym.crop(outputs, begin=(0, seq_len, 0), end=(batch_size, seq_len+1, num_hidden))
     pred = mx.sym.Reshape(outputs_crop, shape=(-1, num_hidden))
-    pred = mx.sym.FullyConnected(pred, num_hidden=vocab_size, name='pred_fc')
+    pred = mx.sym.FullyConnected(pred, num_hidden=vocab_size-1, name='pred_fc')
     label = mx.sym.Reshape(label, shape=(-1,))
     softmax_output = mx.sym.SoftmaxOutput(data=pred, label=label, name='softmax')
     return softmax_output
 
 if __name__ == '__main__':
-    ctx = mx.cpu()
-    lstm = caption_module(num_lstm_layer=2, seq_len=100, vocab_size=1000, num_hidden=256, num_embed=256, batch_size=12)
-    lstm_exec = lstm.simple_bind(ctx=ctx, is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))
-    # print lstm.infer_shape(word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))
+    lstm = caption_module(num_lstm_layer=1, seq_len=38, vocab_size=2540, num_hidden=256, num_embed=256, batch_size=50)
+    # lstm_exec = lstm.simple_bind(ctx=mx.cpu(0), is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))
+    # print lstm.infer_shape(word_data=(50, 38), softmax_label=(50,), image_feature=(50, 4096))
     
