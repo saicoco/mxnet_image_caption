@@ -20,7 +20,7 @@ def parse_args():
     parser.add_argument('--num_embed', default=256, type=int, help="the number of embedding dimension", dest='num_embed')
     parser.add_argument('--num_lstm_layer', default=1, type=int, help="the number of hidden_unit", dest='num_lstm_layer')
     parser.add_argument('--gpus', default=None, type=str, help="wether run on gpu device", dest='gpu')
-    parser.add_argument('--prefix', default='./checkpoint/train', type=str, help="prefix of save checkpoint", dest='prefix')
+    parser.add_argument('--prefix', default='checkpoint', type=str, help="prefix of save checkpoint", dest='prefix')
     parser.add_argument('--period', default=5, type=int, help="times to save checkpoint in training-stage", dest='period')
     return parser.parse_args()
 
@@ -89,7 +89,7 @@ val_iter = mx.io.NDArrayIter(
         shuffle=True
     )
 
-ctx = mx.cpu() if not args.gpus else [mx.gpu(int(i)) for i in args.gpus.split(',')]
+ctx = mx.cpu() if not args.gpu else [mx.gpu(int(i)) for i in args.gpu.split(',')]
 m = mx.mod.Module(symbol=caption_sym, data_names=('image_feature', 'word_data'), context=ctx)
 m.fit(
     train_data=train_iter, 
@@ -99,5 +99,3 @@ m.fit(
     batch_end_callback=mx.callback.Speedometer(batch_size=50, frequent=100),
     epoch_end_callback=mx.callback.do_checkpoint(checkpoints_prefix, period=10)
     )
-
-
