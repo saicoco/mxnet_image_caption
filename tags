@@ -616,9 +616,10 @@ __gt__	mxnet/python/mxnet/symbol.py	/^    def __gt__(self, other):$/;"	kind:memb
 __iadd__	mxnet/python/mxnet/ndarray.py	/^    def __iadd__(self, other):$/;"	kind:member	line:115
 __idiv__	mxnet/python/mxnet/ndarray.py	/^    def __idiv__(self, other):$/;"	kind:member	line:169
 __imul__	mxnet/python/mxnet/ndarray.py	/^    def __imul__(self, other):$/;"	kind:member	line:150
-__init__	im2txt_NIC/data_provider.py	/^    def __init__(self, captions, batch_size, buckets=None, invalid_label=-1,$/;"	kind:member	line:174
+__init__	im2txt_NIC/data_provider.py	/^    def __init__(self, captions, batch_size, buckets=None, invalid_label=-1,$/;"	kind:member	line:175
 __init__	im2txt_NIC/data_provider.py	/^    def __init__(self, captions, batch_size, buckets=None, invalid_label=-1,$/;"	kind:member	line:40
-__init__	im2txt_NIC/data_provider.py	/^    def __init__(self, dataIter, ctx=mx.cpu()):$/;"	kind:member	line:259
+__init__	im2txt_NIC/data_provider.py	/^    def __init__(self, dataIter, ctx=mx.cpu()):$/;"	kind:member	line:260
+__init__	im2txt_NIC/main.py	/^    def __init__(self, nbatch, eval_metric, epoch):$/;"	kind:member	line:37
 __init__	mxnet/amalgamation/python/mxnet_predict.py	/^    def __init__(self, symbol_file,$/;"	kind:member	line:87
 __init__	mxnet/example/autoencoder/model.py	/^    def __init__(self, xpu=mx.cpu(), *args, **kwargs):$/;"	kind:member	line:38
 __init__	mxnet/example/autoencoder/solver.py	/^    def __init__(self, interval, level=logging.DEBUG, stat=None):$/;"	kind:member	line:7
@@ -1291,6 +1292,7 @@ arg_params	mxnet/example/image-classification/fine-tune.py	/^            arg_par
 arg_params	mxnet/example/rcnn/rcnn/utils/caffe_convert.py	/^arg_params = load_model(proto_path, model_path, arg_shape_dic)$/;"	kind:variable	line:69
 arg_params	mxnet/example/warpctc/infer_ocr.py	/^                               arg_params=arg_params,$/;"	kind:variable	line:81
 arg_shape_dic	mxnet/example/rcnn/rcnn/utils/caffe_convert.py	/^arg_shape_dic = { name: shape for name, shape in zip(symbol.list_arguments(), arg_shapes) }$/;"	kind:variable	line:67
+args	im2txt_NIC/main.py	/^    args = parse_args()$/;"	kind:variable	line:154
 args	mxnet/example/bayesian-methods/bdk_demo.py	/^    args = parser.parse_args()$/;"	kind:variable	line:336
 args	mxnet/example/caffe/caffe_net.py	/^    args = parse_args()$/;"	kind:variable	line:93
 args	mxnet/example/fcn-xs/fcn_xs.py	/^    args = parser.parse_args()$/;"	kind:variable	line:71
@@ -1407,7 +1409,6 @@ batch_end_callback	mxnet/example/multi-task/example_multi_task.py	/^    batch_en
 batch_end_callback	mxnet/example/svm_mnist/svm_mnist.py	/^    batch_end_callback = mx.callback.Speedometer(batch_size, 200))  # Logging module to print out progress$/;"	kind:variable	line:76
 batch_end_callbacks	mxnet/example/stochastic-depth/sd_cifar10.py	/^batch_end_callbacks = [mx.callback.Speedometer(batch_size, 50)]$/;"	kind:variable	line:182
 batch_iter	mxnet/example/cnn_text_classification/data_helpers.py	/^def batch_iter(data, batch_size, num_epochs):$/;"	kind:function	line:134
-batch_size	im2txt_NIC/train.py	/^    batch_size = 8$/;"	kind:variable	line:22
 batch_size	mxnet/example/bi-lstm-sort/infer_sort.py	/^    batch_size = 1$/;"	kind:variable	line:18
 batch_size	mxnet/example/bi-lstm-sort/lstm_sort.py	/^    batch_size = 100$/;"	kind:variable	line:19
 batch_size	mxnet/example/gan/dcgan.py	/^    batch_size = 64$/;"	kind:variable	line:139
@@ -1508,7 +1509,6 @@ broadcast_to	mxnet/python/mxnet/ndarray.py	/^    def broadcast_to(self, shape):$
 bucket_io.py	mxnet/example/rnn-time-major/bucket_io.py	1;"	kind:file	line:1
 bucket_io.py	mxnet/example/rnn/old/bucket_io.py	1;"	kind:file	line:1
 bucketing_module.py	mxnet/python/mxnet/module/bucketing_module.py	1;"	kind:file	line:1
-buckets	im2txt_NIC/train.py	/^    buckets = [10, 20, 30]$/;"	kind:variable	line:31
 buckets	mxnet/example/bi-lstm-sort/infer_sort.py	/^    buckets = []$/;"	kind:variable	line:19
 buckets	mxnet/example/bi-lstm-sort/lstm_sort.py	/^    buckets = []$/;"	kind:variable	line:20
 buckets	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^buckets = [8, 16, 24, 32, 60]$/;"	kind:variable	line:68
@@ -1574,11 +1574,10 @@ callback.py	mxnet/python/mxnet/notebook/callback.py	1;"	kind:file	line:1
 callback_args	mxnet/python/mxnet/notebook/callback.py	/^    def callback_args(self):$/;"	kind:member	line:171
 callback_args	mxnet/python/mxnet/notebook/callback.py	/^    def callback_args(self):$/;"	kind:member	line:246
 callback_handle	mxnet/python/mxnet/executor.py	/^    def callback_handle(name, array, _):$/;"	kind:function	line:23
-callbacks	im2txt_NIC/train.py	/^    callbacks = collections.namedtuple('callbacks', 'nbatch eval_metric epoch')$/;"	kind:variable	line:72
+callbacks	im2txt_NIC/main.py	/^class callbacks:$/;"	kind:class	line:35
 captcha	mxnet/example/warpctc/infer_ocr.py	/^    captcha = ImageCaptcha(fonts=['.\/data\/OpenSans-Regular.ttf'])$/;"	kind:variable	line:63
-caption_dataIter	im2txt_NIC/data_provider.py	/^class caption_dataIter(mx.io.DataIter):$/;"	kind:class	line:150
-caption_module	im2txt_NIC/model.py	/^def caption_module(num_lstm_layer, seq_len, vocab_size, num_hidden, num_embed, batch_size, dropout=0.):$/;"	kind:function	line:60
-captions	im2txt_NIC/train.py	/^        captions = json.load(f)$/;"	kind:variable	line:30
+caption_dataIter	im2txt_NIC/data_provider.py	/^class caption_dataIter(mx.io.DataIter):$/;"	kind:class	line:151
+caption_module	im2txt_NIC/sym.py	/^def caption_module(num_lstm_layer, seq_len, vocab_size, num_hidden, num_embed, batch_size, dropout=0.):$/;"	kind:function	line:60
 caug	mxnet/python/mxnet/image.py	/^        def caug(src):$/;"	kind:function	line:174
 ccSGD	mxnet/python/mxnet/optimizer.py	/^class ccSGD(SGD):$/;"	kind:class	line:487
 ce	mxnet/example/dec/dec.py	/^        def ce(label, pred):$/;"	kind:function	line:105
@@ -1642,9 +1641,6 @@ cluster	mxnet/example/dec/dec.py	/^    def cluster(self, X, y=None, update_inter
 cluster_acc	mxnet/example/dec/dec.py	/^def cluster_acc(Y_pred, Y):$/;"	kind:function	line:17
 cmd	mxnet/tools/kill-mxnet.py	/^  cmd = ssh_cmd + host +" \\""+ kill_cmd+"\\""$/;"	kind:variable	line:31
 cmdclass	mxnet/example/rcnn/rcnn/cython/setup.py	/^    cmdclass={'build_ext': custom_build_ext},$/;"	kind:variable	line:149
-cnn_exec	im2txt_NIC/train.py	/^    cnn_exec = cnn_sym.simple_bind(ctx=ctx, is_train=False, **cnn_shapes)$/;"	kind:variable	line:46
-cnn_shapes	im2txt_NIC/train.py	/^    cnn_shapes = {$/;"	kind:variable	line:42
-cnn_sym	im2txt_NIC/train.py	/^    cnn_sym = vgg16_fc7('image_data')$/;"	kind:variable	line:45
 cnt	mxnet/example/kaggle-ndsb1/gen_img_list.py	/^cnt = 0$/;"	kind:variable	line:40
 cnt	mxnet/tools/im2rec.py	/^                    cnt = 0$/;"	kind:variable	line:281
 coco	mxnet/example/rcnn/rcnn/dataset/coco.py	/^class coco(IMDB):$/;"	kind:class	line:15
@@ -1782,7 +1778,7 @@ crossentropy.py	mxnet/example/recommenders/crossentropy.py	1;"	kind:file	line:1
 ctc_label	mxnet/example/warpctc/infer_ocr.py	/^def ctc_label(p):$/;"	kind:function	line:19
 ctc_label	mxnet/example/warpctc/lstm_ocr.py	/^def ctc_label(p):$/;"	kind:function	line:94
 ctc_label	mxnet/example/warpctc/toy_ctc.py	/^def ctc_label(p):$/;"	kind:function	line:87
-ctx	im2txt_NIC/train.py	/^    ctx = mx.gpu(0)$/;"	kind:variable	line:27
+ctx	im2txt_NIC/sym.py	/^    ctx = mx.cpu()$/;"	kind:variable	line:85
 ctx	mxnet/example/fcn-xs/fcn_xs.py	/^ctx = mx.gpu(0)$/;"	kind:variable	line:14
 ctx	mxnet/example/fcn-xs/image_segmentaion.py	/^ctx = mx.gpu(0)$/;"	kind:variable	line:29
 ctx	mxnet/example/gan/dcgan.py	/^    ctx = mx.gpu(0)$/;"	kind:variable	line:143
@@ -1880,7 +1876,7 @@ data.py	mxnet/example/multi-task/data.py	1;"	kind:file	line:1
 data.py	mxnet/example/numpy-ops/data.py	1;"	kind:file	line:1
 data.py	mxnet/example/python-howto/data.py	1;"	kind:file	line:1
 data.py	mxnet/example/torch/data.py	1;"	kind:file	line:1
-dataIter_wrap	im2txt_NIC/data_provider.py	/^class dataIter_wrap(mx.io.DataIter):$/;"	kind:class	line:257
+dataIter_wrap	im2txt_NIC/data_provider.py	/^class dataIter_wrap(mx.io.DataIter):$/;"	kind:class	line:258
 data_array	mxnet/example/neural-style/end_to_end/boost_train.py	/^        data_array = []$/;"	kind:variable	line:103
 data_dir	mxnet/example/module/lstm_bucketing.py	/^data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'rnn', 'data'))$/;"	kind:variable	line:14
 data_dir	mxnet/example/rnn-time-major/rnn_cell_demo.py	/^data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))$/;"	kind:variable	line:41
@@ -1967,6 +1963,7 @@ data_val	mxnet/example/warpctc/toy_ctc.py	/^    data_val = DataIter(1000, BATCH_
 data_validate	mxnet/example/kaggle-ndsb2/Train.py	/^data_validate = mx.io.CSVIter(data_csv=".\/validate-64x64-data.csv", data_shape=(30, 64, 64),$/;"	kind:variable	line:87
 dataiter	mxnet/example/python-howto/data_iter.py	/^dataiter = mx.io.ImageRecordIter($/;"	kind:variable	line:9
 dataiter	mxnet/example/reinforcement-learning/a3c/rl_data.py	/^    dataiter = GymDataIter('Breakout-v0', batch_size, 4)$/;"	kind:variable	line:141
+dataset	im2txt_NIC/tools.py	/^    dataset = load_json()$/;"	kind:variable	line:78
 dataset	mxnet/example/gan/dcgan.py	/^    dataset = 'mnist'$/;"	kind:variable	line:134
 dataset	mxnet/example/rcnn/rcnn/config.py	/^dataset = edict()$/;"	kind:variable	line:140
 datetime	mxnet/python/mxnet/notebook/callback.py	/^    datetime = Datetime_Failed_To_Import$/;"	kind:variable	line:9
@@ -2127,7 +2124,6 @@ epoch_end_callback	mxnet/example/stochastic-depth/sd_cifar10.py	/^            ep
 epoch_end_callbacks	mxnet/example/stochastic-depth/sd_cifar10.py	/^epoch_end_callbacks = [mx.callback.do_checkpoint('sd-%d' % (n_residual_blocks * 6 + 2))]$/;"	kind:variable	line:183
 epoch_length	mxnet/example/reinforcement-learning/ddpg/run.py	/^    epoch_length=1000,$/;"	kind:variable	line:27
 epoch_size	mxnet/example/stochastic-depth/sd_cifar10.py	/^epoch_size = num_examples \/\/ batch_size$/;"	kind:variable	line:179
-epoches	im2txt_NIC/train.py	/^    epoches = 20$/;"	kind:variable	line:21
 eps	mxnet/example/image-classification/symbols/inception-bn.py	/^eps = 1e-10 + 1e-5$/;"	kind:variable	line:14
 eps	mxnet/example/neural-style/end_to_end/basic.py	/^        eps = (mx.nd.norm(old_img - new_img) \/ mx.nd.norm(new_img)).asscalar()$/;"	kind:variable	line:155
 eps	mxnet/example/rcnn/rcnn/symbol/symbol_resnet.py	/^eps = 2e-5$/;"	kind:variable	line:6
@@ -2324,7 +2320,6 @@ frPoly	mxnet/example/rcnn/rcnn/pycocotools/_mask.pyx	/^def frPoly( poly, siz h, 
 frPyObjects	mxnet/example/rcnn/rcnn/pycocotools/_mask.pyx	/^def frPyObjects(pyobj, siz h, w):$/;"	kind:function	line:280
 frPyObjects	mxnet/example/rcnn/rcnn/pycocotools/mask.py	/^frPyObjects = _mask.frPyObjects$/;"	kind:variable	line:82
 frUncompressedRLE	mxnet/example/rcnn/rcnn/pycocotools/_mask.pyx	/^def frUncompressedRLE(ucRles, siz h, siz w):$/;"	kind:function	line:262
-freq_val	im2txt_NIC/train.py	/^    freq_val = 10$/;"	kind:variable	line:26
 full	mxnet/python/mxnet/ndarray.py	/^def full(shape, val, ctx=None, dtype=None):$/;"	kind:function	line:1096
 game.py	mxnet/example/reinforcement-learning/dqn/game.py	1;"	kind:file	line:1
 gen	mxnet/example/reinforcement-learning/a3c/rl_data.py	/^    def gen():$/;"	kind:function	line:21
@@ -2766,8 +2761,7 @@ image	mxnet/tests/python/train/test_mlp.py	/^        image="data\/train-images-i
 image.py	mxnet/example/rcnn/rcnn/io/image.py	1;"	kind:file	line:1
 image.py	mxnet/python/mxnet/image.py	1;"	kind:file	line:1
 image_encode	mxnet/tools/im2rec.py	/^def image_encode(args, i, item, q_out):$/;"	kind:function	line:89
-image_feature	im2txt_NIC/train.py	/^            image_feature = cnn_exec.outputs[0]$/;"	kind:variable	line:81
-image_feature_generator	im2txt_NIC/data_provider.py	/^    def image_feature_generator(self):$/;"	kind:member	line:275
+image_feature_generator	im2txt_NIC/data_provider.py	/^    def image_feature_generator(self):$/;"	kind:member	line:276
 image_list	mxnet/example/ssd/demo.py	/^    image_list = [i.strip() for i in args.images.split(',')]$/;"	kind:variable	line:89
 image_list	mxnet/tools/im2rec.py	/^                image_list = read_list(fname)$/;"	kind:variable	line:251
 image_path_at	mxnet/example/rcnn/rcnn/dataset/imdb.py	/^    def image_path_at(self, index):$/;"	kind:member	line:59
@@ -2850,7 +2844,7 @@ init_c	mxnet/example/rnn/old/lstm_bucketing.py	/^    init_c = [('l%d_init_c'%l, 
 init_c	mxnet/example/rnn/old/rnn_cell_demo.py	/^    init_c = [('LSTM_init_c', (batch_size, num_lstm_layer, num_hidden))]$/;"	kind:variable	line:39
 init_c	mxnet/example/warpctc/lstm_ocr.py	/^    init_c = [('l%d_init_c'%l, (BATCH_SIZE, num_hidden)) for l in range(num_lstm_layer)]$/;"	kind:variable	line:181
 init_c	mxnet/example/warpctc/toy_ctc.py	/^    init_c = [('l%d_init_c'%l, (BATCH_SIZE, num_hidden)) for l in range(num_lstm_layer)]$/;"	kind:variable	line:137
-init_cnn	im2txt_NIC/data_provider.py	/^def init_cnn(cnn, pretrain):$/;"	kind:function	line:293
+init_cnn	im2txt_NIC/data_provider.py	/^def init_cnn(cnn, pretrain):$/;"	kind:function	line:295
 init_fcnxs.py	mxnet/example/fcn-xs/init_fcnxs.py	1;"	kind:file	line:1
 init_from_fcnxs	mxnet/example/fcn-xs/init_fcnxs.py	/^def init_from_fcnxs(ctx, fcnxs_symbol, fcnxs_args_from, fcnxs_auxs_from):$/;"	kind:function	line:48
 init_from_vgg16	mxnet/example/fcn-xs/init_fcnxs.py	/^def init_from_vgg16(ctx, fcnxs_symbol, vgg16fc_args, vgg16fc_auxs):$/;"	kind:function	line:21
@@ -3022,7 +3016,6 @@ latex_elements	mxnet/docs/conf.py	/^latex_elements = {$/;"	kind:variable	line:22
 launch.py	mxnet/tools/launch.py	1;"	kind:file	line:1
 launcher.py	mxnet/example/reinforcement-learning/a3c/launcher.py	1;"	kind:file	line:1
 layerwise_pretrain	mxnet/example/autoencoder/autoencoder.py	/^    def layerwise_pretrain(self, X, batch_size, n_iter, optimizer, l_rate, decay, lr_scheduler=None):$/;"	kind:member	line:134
-learning_rate	im2txt_NIC/train.py	/^    learning_rate = 0.01$/;"	kind:variable	line:20
 learning_rate	mxnet/example/bi-lstm-sort/infer_sort.py	/^    learning_rate = 0.1$/;"	kind:variable	line:25
 learning_rate	mxnet/example/bi-lstm-sort/lstm_sort.py	/^    learning_rate = 0.1$/;"	kind:variable	line:26
 learning_rate	mxnet/example/kaggle-ndsb2/Train.py	/^        learning_rate      = 0.001,$/;"	kind:variable	line:121
@@ -3120,7 +3113,7 @@ load_data_with_word2vec	mxnet/example/cnn_text_classification/data_helpers.py	/^
 load_google_word2vec	mxnet/example/cnn_text_classification/data_helpers.py	/^def load_google_word2vec(path):$/;"	kind:function	line:166
 load_gt_roidb	mxnet/example/rcnn/rcnn/utils/load_data.py	/^def load_gt_roidb(dataset_name, image_set_name, root_path, dataset_path,$/;"	kind:function	line:6
 load_image_set_index	mxnet/example/rcnn/rcnn/dataset/pascal_voc.py	/^    def load_image_set_index(self):$/;"	kind:member	line:50
-load_json	im2txt_NIC/tools.py	/^def load_json():$/;"	kind:function	line:38
+load_json	im2txt_NIC/tools.py	/^def load_json():$/;"	kind:function	line:37
 load_json	mxnet/python/mxnet/symbol.py	/^def load_json(json_str):$/;"	kind:function	line:1109
 load_misc	mxnet/example/reinforcement-learning/dqn/utils.py	/^def load_misc(dir_path="", epoch=None, name=""):$/;"	kind:function	line:233
 load_mldata_iter	mxnet/example/recommenders/movielens_data.py	/^def load_mldata_iter(filename, batch_size):$/;"	kind:function	line:7
@@ -3195,8 +3188,7 @@ lr_step_epochs	mxnet/example/image-classification/train_imagenet.py	/^        lr
 lr_step_epochs	mxnet/example/image-classification/train_mnist.py	/^        lr_step_epochs = '10',$/;"	kind:variable	line:66
 lst	mxnet/example/kaggle-ndsb1/gen_img_list.py	/^        lst = os.listdir(args.image_folder + head[i])$/;"	kind:variable	line:44
 lst	mxnet/example/kaggle-ndsb1/gen_img_list.py	/^    lst = os.listdir(args.image_folder)$/;"	kind:variable	line:49
-lstm	im2txt_NIC/model.py	/^    lstm = caption_module(num_lstm_layer=2, seq_len=100, vocab_size=1000, num_hidden=256, num_embed=256, batch_size=12)$/;"	kind:variable	line:85
-lstm	im2txt_NIC/train.py	/^    lstm = caption_module(num_lstm_layer=num_lstm_layer, seq_len=train_data.sent_length,$/;"	kind:variable	line:47
+lstm	im2txt_NIC/sym.py	/^    lstm = caption_module(num_lstm_layer=2, seq_len=100, vocab_size=1000, num_hidden=256, num_embed=256, batch_size=12)$/;"	kind:variable	line:86
 lstm	mxnet/example/bi-lstm-sort/lstm.py	/^def lstm(num_hidden, indata, prev_state, param, seqidx, layeridx, dropout=0.):$/;"	kind:function	line:17
 lstm	mxnet/example/model-parallel-lstm/lstm.py	/^def lstm(num_hidden, indata, prev_state, param, seqidx, layeridx, dropout=0.):$/;"	kind:function	line:17
 lstm	mxnet/example/nce-loss/lstm_word.py	/^def lstm(num_hidden, indata, prev_state, param, seqidx, layeridx, dropout=0.):$/;"	kind:function	line:20
@@ -3210,8 +3202,7 @@ lstm.py	mxnet/example/warpctc/lstm.py	1;"	kind:file	line:1
 lstm_bucketing.py	mxnet/example/module/lstm_bucketing.py	1;"	kind:file	line:1
 lstm_bucketing.py	mxnet/example/rnn/lstm_bucketing.py	1;"	kind:file	line:1
 lstm_bucketing.py	mxnet/example/rnn/old/lstm_bucketing.py	1;"	kind:file	line:1
-lstm_exec	im2txt_NIC/model.py	/^    lstm_exec = lstm.simple_bind(ctx=mx.cpu(), is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))$/;"	kind:variable	line:86
-lstm_exec	im2txt_NIC/train.py	/^    lstm_exec = lstm.simple_bind($/;"	kind:variable	line:55
+lstm_exec	im2txt_NIC/sym.py	/^    lstm_exec = lstm.simple_bind(ctx=ctx, is_train=False, word_data=(12, 100), softmax_label=(12, 100), image_feature=(12, 4096))$/;"	kind:variable	line:87
 lstm_inference_symbol	mxnet/example/rnn/old/lstm.py	/^def lstm_inference_symbol(num_lstm_layer, input_size,$/;"	kind:function	line:115
 lstm_inference_symbol	mxnet/example/warpctc/lstm.py	/^def lstm_inference_symbol(num_lstm_layer, seq_len, num_hidden, num_label):$/;"	kind:function	line:81
 lstm_model.py	mxnet/example/warpctc/lstm_model.py	1;"	kind:file	line:1
@@ -3219,7 +3210,6 @@ lstm_ocr.py	mxnet/example/warpctc/lstm_ocr.py	1;"	kind:file	line:1
 lstm_ocr_model	mxnet/example/warpctc/ocr_predict.py	/^class lstm_ocr_model(object):$/;"	kind:class	line:16
 lstm_proj.py	mxnet/example/speech-demo/lstm_proj.py	1;"	kind:file	line:1
 lstm_ptb.py	mxnet/example/model-parallel-lstm/lstm_ptb.py	1;"	kind:file	line:1
-lstm_shapes	im2txt_NIC/train.py	/^    lstm_shapes = {$/;"	kind:variable	line:49
 lstm_sort.py	mxnet/example/bi-lstm-sort/lstm_sort.py	1;"	kind:file	line:1
 lstm_unroll	mxnet/example/model-parallel-lstm/lstm.py	/^def lstm_unroll(num_lstm_layer, seq_len, input_size,$/;"	kind:function	line:43
 lstm_unroll	mxnet/example/rnn/old/lstm.py	/^def lstm_unroll(num_lstm_layer, seq_len, input_size,$/;"	kind:function	line:48
@@ -3230,6 +3220,7 @@ m	mxnet/tools/parse_log.py	/^        m = r.match(l)$/;"	kind:variable	line:28
 mACC	mxnet/example/gan/dcgan.py	/^    mACC = mx.metric.CustomMetric(facc)$/;"	kind:variable	line:209
 mD	mxnet/example/gan/dcgan.py	/^    mD = mx.metric.CustomMetric(fentropy)$/;"	kind:variable	line:208
 mG	mxnet/example/gan/dcgan.py	/^    mG = mx.metric.CustomMetric(fentropy)$/;"	kind:variable	line:207
+main	im2txt_NIC/main.py	/^def main(args):$/;"	kind:function	line:43
 main	mxnet/example/cnn_text_classification/text_cnn.py	/^def main():$/;"	kind:function	line:196
 main	mxnet/example/fcn-xs/fcn_xs.py	/^def main():$/;"	kind:function	line:16
 main	mxnet/example/fcn-xs/image_segmentaion.py	/^def main():$/;"	kind:function	line:43
@@ -3252,6 +3243,7 @@ main	mxnet/tools/caffe_converter/convert_model.py	/^def main():$/;"	kind:functio
 main	mxnet/tools/caffe_converter/convert_symbol.py	/^def main():$/;"	kind:function	line:238
 main	mxnet/tools/caffe_converter/mean_image.py	/^def main():$/;"	kind:function	line:39
 main	mxnet/tools/launch.py	/^def main():$/;"	kind:function	line:32
+main.py	im2txt_NIC/main.py	1;"	kind:file	line:1
 make_data_iter_plan	mxnet/example/bi-lstm-sort/sort_io.py	/^    def make_data_iter_plan(self):$/;"	kind:member	line:182
 make_data_iter_plan	mxnet/example/rnn-time-major/bucket_io.py	/^    def make_data_iter_plan(self):$/;"	kind:member	line:183
 make_data_iter_plan	mxnet/example/rnn/old/bucket_io.py	/^    def make_data_iter_plan(self):$/;"	kind:member	line:182
@@ -3372,7 +3364,6 @@ model	mxnet/example/warpctc/lstm_ocr.py	/^    model = mx.model.FeedForward(ctx=c
 model	mxnet/example/warpctc/toy_ctc.py	/^    model = mx.model.FeedForward(ctx=contexts,$/;"	kind:variable	line:146
 model	mxnet/tests/python/train/test_conv.py	/^model = mx.model.FeedForward(softmax, mx.cpu(),$/;"	kind:variable	line:30
 model	mxnet/tools/accnn/accnn.py	/^model = utils.load_model(args)$/;"	kind:variable	line:20
-model.py	im2txt_NIC/model.py	1;"	kind:file	line:1
 model.py	mxnet/example/autoencoder/model.py	1;"	kind:file	line:1
 model.py	mxnet/example/reinforcement-learning/parallel_actor_critic/model.py	1;"	kind:file	line:1
 model.py	mxnet/python/mxnet/model.py	1;"	kind:file	line:1
@@ -3505,7 +3496,7 @@ new_model	mxnet/tools/accnn/accnn.py	/^  new_model = acc_fc.fc_decomposition(new
 new_model	mxnet/tools/accnn/accnn.py	/^new_model = model$/;"	kind:variable	line:30
 next	im2txt_NIC/data_provider.py	/^    def next(self):$/;"	kind:member	line:121
 next	im2txt_NIC/data_provider.py	/^    def next(self):$/;"	kind:member	line:234
-next	im2txt_NIC/data_provider.py	/^    def next(self):$/;"	kind:member	line:290
+next	im2txt_NIC/data_provider.py	/^    def next(self):$/;"	kind:member	line:291
 next	mxnet/example/bi-lstm-sort/sort_io.py	/^    def next(self):$/;"	kind:member	line:112
 next	mxnet/example/fcn-xs/data.py	/^    def next(self):$/;"	kind:member	line:115
 next	mxnet/example/image-classification/common/data.py	/^    def next(self):$/;"	kind:member	line:78
@@ -3555,7 +3546,6 @@ nstyle.py	mxnet/example/neural-style/nstyle.py	1;"	kind:file	line:1
 num	mxnet/example/warpctc/infer_ocr.py	/^    num = gen_rand()$/;"	kind:variable	line:60
 num_classes	mxnet/example/image-classification/train_cifar10.py	/^        num_classes    = 10,$/;"	kind:variable	line:35
 num_classes	mxnet/example/image-classification/train_imagenet.py	/^        num_classes      = 1000,$/;"	kind:variable	line:23
-num_embed	im2txt_NIC/train.py	/^    num_embed = 256$/;"	kind:variable	line:24
 num_embed	mxnet/example/bi-lstm-sort/infer_sort.py	/^    num_embed = 512$/;"	kind:variable	line:21
 num_embed	mxnet/example/bi-lstm-sort/lstm_sort.py	/^    num_embed = 512$/;"	kind:variable	line:22
 num_embed	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^                             num_embed=num_embed,$/;"	kind:variable	line:96
@@ -3599,7 +3589,6 @@ num_filter	mxnet/example/stochastic-depth/sd_mnist.py	/^        num_filter=16,$/
 num_filter	mxnet/example/stochastic-depth/sd_mnist.py	/^        num_filter=16,$/;"	kind:variable	line:84
 num_filter	mxnet/example/stochastic-depth/sd_mnist.py	/^    num_filter=16,$/;"	kind:variable	line:58
 num_gpu	mxnet/example/module/python_loss.py	/^    num_gpu = 2$/;"	kind:variable	line:28
-num_hidden	im2txt_NIC/train.py	/^    num_hidden = 256$/;"	kind:variable	line:23
 num_hidden	mxnet/example/bi-lstm-sort/infer_sort.py	/^    num_hidden = 300$/;"	kind:variable	line:20
 num_hidden	mxnet/example/bi-lstm-sort/lstm_sort.py	/^    num_hidden = 300$/;"	kind:variable	line:21
 num_hidden	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^                             num_hidden=num_hidden,$/;"	kind:variable	line:95
@@ -3631,7 +3620,6 @@ num_label	mxnet/example/warpctc/lstm_ocr.py	/^    num_label = 4$/;"	kind:variabl
 num_label	mxnet/example/warpctc/toy_ctc.py	/^    num_label = 4$/;"	kind:variable	line:128
 num_layers	mxnet/example/image-classification/train_cifar10.py	/^        num_layers     = 110,$/;"	kind:variable	line:31
 num_layers	mxnet/example/image-classification/train_imagenet.py	/^        num_layers       = 50,$/;"	kind:variable	line:21
-num_lstm_layer	im2txt_NIC/train.py	/^    num_lstm_layer = 1$/;"	kind:variable	line:25
 num_lstm_layer	mxnet/example/bi-lstm-sort/infer_sort.py	/^    num_lstm_layer = 2$/;"	kind:variable	line:22
 num_lstm_layer	mxnet/example/bi-lstm-sort/lstm_sort.py	/^    num_lstm_layer = 2$/;"	kind:variable	line:23
 num_lstm_layer	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^                             num_lstm_layer=num_lstm_layer,$/;"	kind:variable	line:93
@@ -3677,7 +3665,6 @@ operator.py	mxnet/python/mxnet/operator.py	1;"	kind:file	line:1
 operators.py	mxnet/example/reinforcement-learning/dqn/operators.py	1;"	kind:file	line:1
 opt_registry	mxnet/python/mxnet/optimizer.py	/^    opt_registry = {}$/;"	kind:variable	line:12
 optim_state	mxnet/example/neural-style/end_to_end/basic.py	/^    optim_state = optimizer.create_state(0, img)$/;"	kind:variable	line:138
-optimazer	im2txt_NIC/train.py	/^    optimazer = mx.optimizer.create('sgd')$/;"	kind:variable	line:63
 optimizer	mxnet/example/gan/dcgan.py	/^        optimizer='adam',$/;"	kind:variable	line:164
 optimizer	mxnet/example/gan/dcgan.py	/^        optimizer='adam',$/;"	kind:variable	line:179
 optimizer	mxnet/example/neural-style/end_to_end/basic.py	/^    optimizer = mx.optimizer.SGD($/;"	kind:variable	line:133
@@ -3731,10 +3718,10 @@ pad_size	mxnet/example/image-classification/train_cifar10.py	/^        pad_size 
 pallete	mxnet/example/fcn-xs/image_segmentaion.py	/^pallete = getpallete(256)$/;"	kind:variable	line:24
 param_arrays	mxnet/python/mxnet/executor_manager.py	/^    def param_arrays(self):$/;"	kind:member	line:380
 param_file	mxnet/tests/python/predict/mxnet_predict_example.py	/^param_file = "%s-0000.params" % prefix$/;"	kind:variable	line:14
-params	im2txt_NIC/train.py	/^    params = callbacks(nbatch=0, eval_metric=perplexity, epoch=epoches)$/;"	kind:variable	line:73
 params	mxnet/python/mxnet/rnn/rnn_cell.py	/^    def params(self):$/;"	kind:member	line:785
 params	mxnet/python/mxnet/rnn/rnn_cell.py	/^    def params(self):$/;"	kind:member	line:91
 parse_activation	mxnet/example/speech-demo/io_func/utils.py	/^def parse_activation(act_str):$/;"	kind:function	line:87
+parse_args	im2txt_NIC/main.py	/^def parse_args():$/;"	kind:function	line:20
 parse_args	mxnet/example/caffe/caffe_net.py	/^def parse_args():$/;"	kind:function	line:57
 parse_args	mxnet/example/image-classification/benchmark.py	/^def parse_args():$/;"	kind:function	line:79
 parse_args	mxnet/example/profiler/profiler_executor.py	/^def parse_args():$/;"	kind:function	line:9
@@ -3795,7 +3782,6 @@ path	mxnet/example/neural-style/end_to_end/boost_train.py	/^        path = data_
 path_imgrec	mxnet/example/kaggle-ndsb1/predict_dsb.py	/^    path_imgrec = args.data_dir + "test.rec",$/;"	kind:variable	line:35
 path_imgrec	mxnet/example/python-howto/data_iter.py	/^        path_imgrec="data\/cifar\/train.rec",$/;"	kind:variable	line:13
 pd	mxnet/python/mxnet/notebook/callback.py	/^    pd = Pandas_Failed_To_Import$/;"	kind:variable	line:26
-perplexity	im2txt_NIC/train.py	/^    perplexity = mx.metric.Perplexity(ignore_label=-1)$/;"	kind:variable	line:68
 pickle_load	mxnet/example/speech-demo/io_func/utils.py	/^def pickle_load(filename):$/;"	kind:function	line:126
 pickle_save	mxnet/example/speech-demo/io_func/utils.py	/^def pickle_save(obj, filename):$/;"	kind:function	line:138
 play	mxnet/example/reinforcement-learning/dqn/atari_game.py	/^    def play(self, a):$/;"	kind:member	line:139
@@ -3825,7 +3811,6 @@ predict	mxnet/python/mxnet/module/base_module.py	/^    def predict(self, eval_da
 predict_dsb.py	mxnet/example/kaggle-ndsb1/predict_dsb.py	1;"	kind:file	line:1
 predictions	mxnet/example/kaggle-ndsb1/predict_dsb.py	/^predictions = model.predict(test)$/;"	kind:variable	line:47
 predictor	mxnet/tests/python/predict/mxnet_predict_example.py	/^predictor = Predictor(open(symbol_file, "r").read(),$/;"	kind:variable	line:15
-preds	im2txt_NIC/train.py	/^                              preds=lstm_exec.outputs)$/;"	kind:variable	line:94
 preds	mxnet/example/module/mnist_mlp.py	/^preds = mod.predict(val_dataiter)$/;"	kind:variable	line:75
 preds	mxnet/example/module/mnist_mlp.py	/^preds = mod.predict(val_dataiter, merge_batches=False)$/;"	kind:variable	line:78
 prefetch_buffer	mxnet/example/python-howto/data_iter.py	/^        prefetch_buffer=4,$/;"	kind:variable	line:45
@@ -3842,7 +3827,6 @@ preprocess	mxnet/example/reinforcement-learning/parallel_actor_critic/envs.py	/^
 preprocess	mxnet/example/reinforcement-learning/parallel_actor_critic/envs.py	/^    def preprocess(self, x):$/;"	kind:member	line:39
 preprocess_cell	mxnet/tests/nightly/test_ipynb.py	/^    def preprocess_cell(self, cell, resources, cell_index):$/;"	kind:member	line:33
 preprocess_threads	mxnet/example/python-howto/data_iter.py	/^        preprocess_threads=4,$/;"	kind:variable	line:41
-pretrain	im2txt_NIC/train.py	/^    pretrain = mx.nd.load(config.vgg_pretrain)$/;"	kind:variable	line:59
 print_layer_summary	mxnet/python/mxnet/visualization.py	/^    def print_layer_summary(node, out_shape):$/;"	kind:function	line:85
 print_row	mxnet/python/mxnet/visualization.py	/^    def print_row(fields, positions):$/;"	kind:function	line:63
 print_stat	mxnet/example/reinforcement-learning/dqn/base.py	/^    def print_stat(self):$/;"	kind:member	line:290
@@ -3997,8 +3981,8 @@ replicate_data	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^def replicate_dat
 res	mxnet/tools/parse_log.py	/^res = [re.compile('.*Epoch\\[(\\d+)\\] Train.*=([.\\d]+)'),$/;"	kind:variable	line:20
 res_deps	mxnet/example/rcnn/rcnn/symbol/symbol_resnet.py	/^res_deps = {'50': (3, 4, 6, 3), '101': (3, 4, 23, 3), '152': (3, 8, 36, 3), '200': (3, 24, 36, 3)}$/;"	kind:variable	line:9
 reset	im2txt_NIC/data_provider.py	/^    def reset(self):$/;"	kind:member	line:102
-reset	im2txt_NIC/data_provider.py	/^    def reset(self):$/;"	kind:member	line:221
-reset	im2txt_NIC/data_provider.py	/^    def reset(self):$/;"	kind:member	line:272
+reset	im2txt_NIC/data_provider.py	/^    def reset(self):$/;"	kind:member	line:222
+reset	im2txt_NIC/data_provider.py	/^    def reset(self):$/;"	kind:member	line:273
 reset	mxnet/example/bi-lstm-sort/sort_io.py	/^    def reset(self):$/;"	kind:member	line:238
 reset	mxnet/example/fcn-xs/data.py	/^    def reset(self):$/;"	kind:member	line:103
 reset	mxnet/example/gan/dcgan.py	/^    def reset(self):$/;"	kind:member	line:98
@@ -4130,7 +4114,7 @@ save	mxnet/example/speech-demo/io_func/model_io.py	/^def save(model, filename):$
 save	mxnet/python/mxnet/model.py	/^    def save(self, prefix, epoch=None):$/;"	kind:member	line:819
 save	mxnet/python/mxnet/ndarray.py	/^def save(fname, data):$/;"	kind:function	line:1281
 save	mxnet/python/mxnet/symbol.py	/^    def save(self, fname):$/;"	kind:member	line:671
-save2json	im2txt_NIC/tools.py	/^def save2json(obj, filename):$/;"	kind:function	line:47
+save2json	im2txt_NIC/tools.py	/^def save2json(obj, filename):$/;"	kind:function	line:48
 save_checkpoint	mxnet/example/rcnn/rcnn/utils/save_model.py	/^def save_checkpoint(prefix, epoch, arg_params, aux_params):$/;"	kind:function	line:4
 save_checkpoint	mxnet/python/mxnet/model.py	/^def save_checkpoint(prefix, epoch, symbol, arg_params, aux_params):$/;"	kind:function	line:319
 save_checkpoint	mxnet/python/mxnet/module/module.py	/^    def save_checkpoint(self, prefix, epoch, save_optimizer_states=False):$/;"	kind:member	line:135
@@ -4241,7 +4225,6 @@ sources	mxnet/example/rcnn/rcnn/pycocotools/setup.py	/^        sources=['maskApi
 speechSGD	mxnet/example/speech-demo/speechSGD.py	/^class speechSGD(mx.optimizer.Optimizer):$/;"	kind:class	line:7
 speechSGD.py	mxnet/example/speech-demo/speechSGD.py	1;"	kind:file	line:1
 speed	mxnet/example/image-classification/benchmark_score.py	/^                speed = score(network=net, dev=d, batch_size=b, num_batches=10)$/;"	kind:variable	line:63
-speedometer	im2txt_NIC/train.py	/^    speedometer = mx.callback.Speedometer(batch_size=batch_size, frequent=20)$/;"	kind:variable	line:74
 sphinx_util.py	mxnet/docs/sphinx_util.py	1;"	kind:file	line:1
 split_csv	mxnet/example/kaggle-ndsb2/Preprocessing.py	/^def split_csv(src_csv, split_to_train, train_csv, test_csv):$/;"	kind:function	line:116
 split_to_train	mxnet/example/kaggle-ndsb2/Preprocessing.py	/^split_to_train = [x in train_set for x in train_index]$/;"	kind:variable	line:147
@@ -4305,6 +4288,7 @@ sym	mxnet/example/image-classification/train_imagenet.py	/^    sym = net.get_sym
 sym	mxnet/example/image-classification/train_mnist.py	/^    sym = net.get_symbol(**vars(args))$/;"	kind:variable	line:73
 sym	mxnet/example/reinforcement-learning/dqn/base.py	/^    def sym(self):$/;"	kind:member	line:76
 sym	mxnet/example/speech-demo/decode_mxnet.py	/^        sym = lstm_unroll(num_lstm_layer, truncate_len, feat_dim, num_hidden=num_hidden,$/;"	kind:variable	line:121
+sym.py	im2txt_NIC/sym.py	1;"	kind:file	line:1
 sym.py	mxnet/example/reinforcement-learning/a3c/sym.py	1;"	kind:file	line:1
 sym_base	mxnet/example/stochastic-depth/sd_cifar10.py	/^sym_base = mx.sym.Activation(data=sym_base, name='relu1', act_type='relu')$/;"	kind:variable	line:128
 sym_base	mxnet/example/stochastic-depth/sd_cifar10.py	/^sym_base = mx.sym.BatchNorm(data=sym_base, name='bn1', fix_gamma=False, momentum=bn_momentum, eps=2e-5)$/;"	kind:variable	line:127
@@ -4668,6 +4652,7 @@ toc_print	mxnet/python/mxnet/monitor.py	/^    def toc_print(self):$/;"	kind:memb
 tojson	mxnet/python/mxnet/symbol.py	/^    def tojson(self):$/;"	kind:member	line:695
 tokenize_text	mxnet/example/rnn/cudnn_lstm_bucketing.py	/^def tokenize_text(fname, vocab=None, invalid_label=-1, start_label=0):$/;"	kind:function	line:53
 tokenize_text	mxnet/example/rnn/lstm_bucketing.py	/^def tokenize_text(fname, vocab=None, invalid_label=-1, start_label=0):$/;"	kind:function	line:34
+tokens	im2txt_NIC/tools.py	/^    tokens = [dataset['images'][i]['sentences'][j]['tokens'] for i in xrange($/;"	kind:variable	line:79
 tools.py	im2txt_NIC/tools.py	1;"	kind:file	line:1
 top1	mxnet/tests/python/predict/mxnet_predict_example.py	/^top1 = synset[pred[0]]$/;"	kind:variable	line:49
 top5	mxnet/tests/python/predict/mxnet_predict_example.py	/^top5 = [synset[pred[i]] for i in range(5)]$/;"	kind:variable	line:52
@@ -4690,7 +4675,6 @@ train	mxnet/example/reinforcement-learning/a3c/a3c.py	/^def train():$/;"	kind:fu
 train	mxnet/example/reinforcement-learning/ddpg/ddpg.py	/^    def train(self):$/;"	kind:member	line:163
 train	mxnet/example/rnn/cudnn_lstm_bucketing.py	/^def train(args):$/;"	kind:function	line:72
 train	mxnet/example/stochastic-depth/sd_mnist.py	/^train = mx.io.MNISTIter($/;"	kind:variable	line:109
-train.py	im2txt_NIC/train.py	1;"	kind:file	line:1
 train.py	mxnet/example/reinforcement-learning/parallel_actor_critic/train.py	1;"	kind:file	line:1
 train.py	mxnet/example/ssd/train.py	1;"	kind:file	line:1
 train_X	mxnet/example/autoencoder/mnist_sae.py	/^    train_X = X[:60000]$/;"	kind:variable	line:17
@@ -4700,7 +4684,6 @@ train_cifar10.py	mxnet/example/image-classification/train_cifar10.py	1;"	kind:fi
 train_cifar10.py	mxnet/example/module/train_cifar10.py	1;"	kind:file	line:1
 train_cnn	mxnet/example/cnn_text_classification/text_cnn.py	/^def train_cnn(model, X_train_batch, y_train_batch, X_dev_batch, y_dev_batch, batch_size,$/;"	kind:function	line:105
 train_csv	mxnet/example/kaggle-ndsb2/Train.py	/^train_csv = np.genfromtxt(".\/train-label.csv", delimiter=',')$/;"	kind:variable	line:172
-train_data	im2txt_NIC/train.py	/^    train_data = caption_dataIter($/;"	kind:variable	line:33
 train_dataiter	mxnet/example/module/mnist_mlp.py	/^train_dataiter = mx.io.MNISTIter($/;"	kind:variable	line:23
 train_dataiter	mxnet/example/module/python_loss.py	/^    train_dataiter = mx.io.MNISTIter($/;"	kind:variable	line:46
 train_dataiter	mxnet/example/module/sequential_module.py	/^train_dataiter = mx.io.MNISTIter($/;"	kind:variable	line:52
@@ -4818,7 +4801,6 @@ update_params	mxnet/example/reinforcement-learning/ddpg/policies.py	/^    def up
 update_params	mxnet/example/reinforcement-learning/ddpg/qfuncs.py	/^    def update_params(self, obs, act, yval):$/;"	kind:member	line:65
 update_period	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^                update_period=update_period,$/;"	kind:variable	line:108
 update_period	mxnet/example/model-parallel-lstm/lstm_ptb.py	/^update_period = 1$/;"	kind:variable	line:62
-updater	im2txt_NIC/train.py	/^    updater = mx.optimizer.get_updater(optimazer)$/;"	kind:variable	line:65
 updater	mxnet/tests/python/unittest/test_kvstore.py	/^def updater(key, recv, local):$/;"	kind:function	line:78
 updater_handle	mxnet/python/mxnet/kvstore.py	/^    def updater_handle(key, lhs_handle, rhs_handle, _):$/;"	kind:function	line:41
 upsample_filt	mxnet/example/fcn-xs/init_fcnxs.py	/^def upsample_filt(size):$/;"	kind:function	line:11
@@ -4845,7 +4827,6 @@ val	mxnet/example/multi-task/example_multi_task.py	/^val = Multi_mnist_iterator(
 val	mxnet/example/stochastic-depth/sd_mnist.py	/^val = mx.io.MNISTIter($/;"	kind:variable	line:114
 val	mxnet/tools/parse_log.py	/^    val = float(m.groups()[1])$/;"	kind:variable	line:37
 val_X	mxnet/example/autoencoder/mnist_sae.py	/^    val_X = X[60000:]$/;"	kind:variable	line:18
-val_data	im2txt_NIC/train.py	/^    val_data = caption_dataIter($/;"	kind:variable	line:35
 val_dataiter	mxnet/example/module/mnist_mlp.py	/^val_dataiter = mx.io.MNISTIter($/;"	kind:variable	line:28
 val_dataiter	mxnet/example/module/python_loss.py	/^    val_dataiter = mx.io.MNISTIter($/;"	kind:variable	line:51
 val_dataiter	mxnet/example/module/sequential_module.py	/^val_dataiter = mx.io.MNISTIter($/;"	kind:variable	line:57
@@ -4859,13 +4840,13 @@ variable_length_caption_dataIter	im2txt_NIC/data_provider.py	/^class variable_le
 version	mxnet/docs/conf.py	/^version = '0.9.3'$/;"	kind:variable	line:58
 version	mxnet/python/setup.py	/^      version=__version__,$/;"	kind:variable	line:66
 vgg.py	mxnet/example/image-classification/symbols/vgg.py	1;"	kind:file	line:1
-vgg16_fc7	im2txt_NIC/model.py	/^def vgg16_fc7(input_name='image_data'):$/;"	kind:function	line:10
+vgg16_fc7	im2txt_NIC/sym.py	/^def vgg16_fc7(input_name='image_data'):$/;"	kind:function	line:10
 vgg16_pool3	mxnet/example/fcn-xs/symbol_fcnxs.py	/^def vgg16_pool3(input, workspace_default=1024):$/;"	kind:function	line:66
 vgg16_pool4	mxnet/example/fcn-xs/symbol_fcnxs.py	/^def vgg16_pool4(input, workspace_default=1024):$/;"	kind:function	line:96
 vgg16_score	mxnet/example/fcn-xs/symbol_fcnxs.py	/^def vgg16_score(input, numclass, workspace_default=1024):$/;"	kind:function	line:110
 vgg_params	mxnet/example/neural-style/end_to_end/basic.py	/^    vgg_params = mx.nd.load(".\/model\/vgg19.params")$/;"	kind:variable	line:102
 vgg_params	mxnet/example/neural-style/end_to_end/boost_train.py	/^vgg_params = mx.nd.load(".\/vgg19.params")$/;"	kind:variable	line:13
-vgg_pretrain	im2txt_NIC/config.py	/^vgg_pretrain = '.\/pre_train\/vgg16-0000.params'$/;"	kind:variable	line:8
+vgg_pretrain	im2txt_NIC/config.py	/^vgg_pretrain = '.\/pre_train\/vgg16-0000.params'$/;"	kind:variable	line:9
 video_feed	mxnet/example/reinforcement-learning/a3c/rl_data.py	/^    def video_feed():$/;"	kind:function	line:29
 vis_all_detection	mxnet/example/rcnn/rcnn/core/tester.py	/^def vis_all_detection(im_array, detections, class_names, scale):$/;"	kind:function	line:200
 visual	mxnet/example/gan/dcgan.py	/^def visual(title, X):$/;"	kind:function	line:118
@@ -4887,7 +4868,7 @@ vocab	mxnet/example/rnn-time-major/rnn_cell_demo.py	/^    vocab = default_build_
 vocab	mxnet/example/rnn/old/gru_bucketing.py	/^    vocab = default_build_vocab(".\/data\/ptb.train.txt")$/;"	kind:variable	line:37
 vocab	mxnet/example/rnn/old/lstm_bucketing.py	/^    vocab = default_build_vocab(".\/data\/ptb.train.txt")$/;"	kind:variable	line:37
 vocab	mxnet/example/rnn/old/rnn_cell_demo.py	/^    vocab = default_build_vocab(os.path.join(data_dir, 'ptb.train.txt'))$/;"	kind:variable	line:36
-vocab_generate	im2txt_NIC/tools.py	/^def vocab_generate(tokens):$/;"	kind:function	line:26
+vocab_generate	im2txt_NIC/tools.py	/^def vocab_generate(sentence_iterator, word_count_threshold):$/;"	kind:function	line:54
 vocab_root	im2txt_NIC/config.py	/^vocab_root = '.\/vocab\/vocab.json'$/;"	kind:variable	line:6
 vocab_size	mxnet/example/nce-loss/toy_nce.py	/^    vocab_size = 10000$/;"	kind:variable	line:91
 vocab_size	mxnet/example/nce-loss/toy_softmax.py	/^    vocab_size = 10000$/;"	kind:variable	line:80
@@ -4908,6 +4889,7 @@ with_relu	mxnet/example/stochastic-depth/sd_mnist.py	/^        with_relu=False,$
 with_relu	mxnet/example/stochastic-depth/sd_mnist.py	/^        with_relu=True,$/;"	kind:variable	line:78
 with_relu	mxnet/example/stochastic-depth/sd_mnist.py	/^    with_relu=True,$/;"	kind:variable	line:62
 wlr	mxnet/example/numpy-ops/weighted_logistic_regression.py	/^    wlr = mx.sym.Custom(data, pos_grad_scale = pos, neg_grad_scale = neg, name = 'wlr', op_type = 'weighted_logistic_regression')$/;"	kind:variable	line:36
+word2idx	im2txt_NIC/config.py	/^word2idx = '.\/vocab\/word2idx.json'$/;"	kind:variable	line:8
 words_cout_threshold	im2txt_NIC/config.py	/^words_cout_threshold=25$/;"	kind:variable	line:3
 wordvec.py	mxnet/example/nce-loss/wordvec.py	1;"	kind:file	line:1
 wordvec_subwords.py	mxnet/example/nce-loss/wordvec_subwords.py	1;"	kind:file	line:1
