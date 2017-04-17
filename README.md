@@ -22,7 +22,9 @@ This is a simple implementaion of paper Neural Image Caption[^1] based on mxnet.
     ],
 "datasets":Flickr8k}
 ```
-or you can download processed data from [here](http://cs.stanford.edu/people/karpathy/deepimagesent/), which image are extracted from vgg networks 4096-dim, and unzip them into dir 'datasets'  
+or you can download processed data from [here](http://cs.stanford.edu/people/karpathy/deepimagesent/), which image are extracted from vgg networks 4096-dim, and unzip them into dir 'datasets',
+then copy file which in "old" dir into root dir, and run it, this is a old version about NIC.  
+
 
 2. After data downloading completes, you can run:  
 ```
@@ -32,7 +34,8 @@ when it runs over, there will be a directory named "processed_data" which includ
 
 3. `python 2_train_val.py` to train model on your dataset and save you dataset.  
 
-4. to be continue... 
+4. There are something wrong with test stage(predict), (variable length for sym, I think I should use `mx.mod.BuckingModule`), I am trying~~~~~~~~~~~, if you find the solution, welcome to
+issue me.
 
 ### Reference  
 [^1]: Vinyals O, Toshev A, Bengio S, et al. Show and tell: A neural image caption generator[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2015: 3156-3164.
