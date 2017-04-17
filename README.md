@@ -1,6 +1,7 @@
 ## image caption generation  
 
-This is a simple implementaion of paper Neural Image Caption[^1] based on mxnet.  
+This is a simple implementaion of paper Neural [Image Caption][^1] based on mxnet.  
+Some codes refer [where-to-image](https://github.com/mtanti/where-image)
 
 ### Usage  
 
